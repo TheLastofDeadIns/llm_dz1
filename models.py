@@ -8,17 +8,17 @@ class MLP(nn.Module):
             nn.Linear(input_dim, hidden_dim),
             nn.ReLU(),
             nn.Linear(hidden_dim, hidden_dim),
-            nn.ReLU(),
+            nn.ReLU() ,
             nn.Linear(hidden_dim, output_dim)
         )
         self.is_critic = is_critic
-
     def forward(self, x, return_logits=False):
         x = self.net(x)
         if self.is_critic:
-            return x  # для value network выход без активации
+            return x
         else:
             if return_logits:
-                return x  # логиты для CrossEntropyLoss
+                return x
             else:
-                return F.softmax(x, dim=-1)  # вероятности для Categorical
+
+                return F.softmax(x, dim=-1)
